@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>???</title>
+<title>外勤表</title>
 <script src="https://unpkg.com/lucide@latest">
 </script>
 <style>
@@ -173,15 +173,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC
 <body>
 <div class="header">
   <div class="header-left">
-    <h1>???</h1>
+    <h1>外勤表</h1>
     <div class="tab-bar">
-      <button class="tab-btn active" data-view="calendar" title="??"><i data-lucide="calendar"></i> ??</button>
-      <button class="tab-btn" data-view="records" title="??"><i data-lucide="history"></i> ??</button>
+      <button class="tab-btn active" data-view="calendar" title="日历"><i data-lucide="calendar"></i> 日历</button>
+      <button class="tab-btn" data-view="records" title="记录"><i data-lucide="history"></i> 记录</button>
     </div>
   </div>
   <div class="header-actions">
-    <button class="btn btn-sm" onclick="exportCSV()" title="?? CSV"><i data-lucide="download"></i> ??</button>
-    <button class="btn btn-sm" onclick="window.print()" title="??"><i data-lucide="printer"></i></button>
+    <button class="btn btn-sm" onclick="exportCSV()" title="导出 CSV"><i data-lucide="download"></i> 导出</button>
+    <button class="btn btn-sm" onclick="window.print()" title="打印"><i data-lucide="printer"></i></button>
   </div>
 </div>
 <div class="container">
@@ -191,32 +191,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC
     <div class="cal-layout">
       <div class="cal-main">
         <div class="cal-header">
-          <button class="btn btn-sm" onclick="calGo(-1)" title="??"><i data-lucide="chevron-left"></i></button>
+          <button class="btn btn-sm" onclick="calGo(-1)" title="上月"><i data-lucide="chevron-left"></i></button>
           <h2 id="cal-title">-</h2>
           <div class="cal-nav">
-            <button onclick="calToday()" title="??">??</button>
-            <button onclick="calGo(1)" title="??"><i data-lucide="chevron-right"></i></button>
+            <button onclick="calToday()" title="今天">今天</button>
+            <button onclick="calGo(1)" title="下月"><i data-lucide="chevron-right"></i></button>
           </div>
         </div>
         <div class="cal-grid">
-          <div class="cal-weekdays"><div>?</div><div>?</div><div>?</div><div>?</div><div>?</div><div>?</div><div>?</div></div>
+          <div class="cal-weekdays"><div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div></div>
           <div class="cal-days" id="cal-days"></div>
         </div>
         <div class="day-panel">
           <div class="day-panel-header">
-            <h3 id="day-panel-title">????????</h3>
+            <h3 id="day-panel-title">选择日期查看详情</h3>
           </div>
-          <div id="day-records" class="day-records"><div class="empty-day">????????????????</div></div>
+          <div id="day-records" class="day-records"><div class="empty-day">点击日历中的日期查看当日外勤记录</div></div>
         </div>
       </div>
       <div class="cal-todo-panel">
-        <div class="cal-todo-head">????</div>
-        <button class="btn btn-sm btn-primary" onclick="openQuickRecord()" style="width:100%;margin-bottom:10px;justify-content:center"><i data-lucide="plus"></i> ????</button>
+        <div class="cal-todo-head">快速外勤</div>
+        <button class="btn btn-sm btn-primary" onclick="openQuickRecord()" style="width:100%;margin-bottom:10px;justify-content:center"><i data-lucide="plus"></i> 新增外勤</button>
         <div class="cal-todo-list" id="quick-records-list">
-          <div class="empty-state" style="padding:20px 0"><p>????</p></div>
+          <div class="empty-state" style="padding:20px 0"><p>暂无记录</p></div>
         </div>
         <div class="cal-todo-stats">
-          <span>? <strong id="quick-record-count">0</strong> ?</span>
+          <span>共 <strong id="quick-record-count">0</strong> 条</span>
         </div>
       </div></div>
     </div>
@@ -226,14 +226,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC
   <div id="view-records" class="view">
     <div class="records-toolbar">
       <div class="toolbar-left">
-        <div class="search-box"><i data-lucide="search"></i><input type="text" id="search-input" placeholder="????/??" oninput="renderRecords()"></div>
+        <div class="search-box"><i data-lucide="search"></i><input type="text" id="search-input" placeholder="搜索姓名/地点" oninput="renderRecords()"></div>
       </div>
       <div class="toolbar-right">
-        <button class="btn btn-sm" onclick="exportCSV()" title="?? CSV"><i data-lucide="download"></i> ??</button>
-        <button class="btn btn-sm btn-danger" onclick="clearAllRecords()" title="??"><i data-lucide="trash-2"></i></button>
+        <button class="btn btn-sm" onclick="exportCSV()" title="导出 CSV"><i data-lucide="download"></i> 导出</button>
+        <button class="btn btn-sm btn-danger" onclick="clearAllRecords()" title="清空"><i data-lucide="trash-2"></i></button>
       </div>
     </div>
-    <div class="stats-bar"><span>? <strong id="total-count">0</strong> ???</span></div>
+    <div class="stats-bar"><span>共 <strong id="total-count">0</strong> 条记录</span></div>
     <div id="records-list"></div>
   </div>
 
@@ -244,19 +244,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC
 <div class="modal-overlay" id="quick-modal">
   <div class="modal">
     <div class="modal-head">
-      <h2>??????</h2>
-      <button class="modal-close" onclick="closeQuickRecord()" title="??"><i data-lucide="x"></i></button>
+      <h2>新增外勤记录</h2>
+      <button class="modal-close" onclick="closeQuickRecord()" title="关闭"><i data-lucide="x"></i></button>
     </div>
     <div class="modal-body">
       <div class="form-grid" style="grid-template-columns:1fr">
-        <div class="form-group"><label>??</label><input type="text" id="quick-name" placeholder="?????"></div>
-        <div class="form-group"><label>????</label><input type="text" id="quick-location" placeholder="????????????"></div>
-        <div class="form-group full-width"><label>??</label><textarea id="quick-note" placeholder="????" style="min-height:60px"></textarea></div>
+        <div class="form-group"><label>姓名</label><input type="text" id="quick-name" placeholder="请输入姓名"></div>
+        <div class="form-group"><label>外勤地点</label><input type="text" id="quick-location" placeholder="例如：客户公司、现场地址"></div>
+        <div class="form-group full-width"><label>备注</label><textarea id="quick-note" placeholder="填写说明" style="min-height:60px"></textarea></div>
       </div>
     </div>
     <div class="modal-foot">
-      <button class="btn" onclick="closeQuickRecord()">??</button>
-      <button class="btn btn-primary" onclick="saveQuickRecord()"><i data-lucide="check"></i> ??</button>
+      <button class="btn" onclick="closeQuickRecord()">取消</button>
+      <button class="btn btn-primary" onclick="saveQuickRecord()"><i data-lucide="check"></i> 保存</button>
     </div>
   </div>
 </div>
@@ -270,7 +270,7 @@ function getTodos(){try{return JSON.parse(localStorage.getItem(TODOS_KEY))||[]}c
 function saveTodos(t){localStorage.setItem(TODOS_KEY,JSON.stringify(t))}
 function genId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
 function today(){return new Date().toISOString().split('T')[0]}
-function fmtDate(d){if(!d)return'';var p=d.split('-');return p[0]+'?'+parseInt(p[1])+'?'+parseInt(p[2])+'?'}
+function fmtDate(d){if(!d)return'';var p=d.split('-');return p[0]+'年'+parseInt(p[1])+'月'+parseInt(p[2])+'日'}
 function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 
 function toast(msg,t){if(t===undefined)t='success';var c=document.getElementById('toast-container');var e=document.createElement('div');e.className='toast toast-'+t;e.textContent=msg;c.appendChild(e);setTimeout(function(){e.style.opacity='0';e.style.transition='opacity .3s';setTimeout(function(){e.remove()},300)},2500)}
@@ -279,32 +279,32 @@ document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('cl
 
 /* Calendar */
 var calYear,calMonth,calSel=null;
-function renderCalendar(){var n=new Date();if(calYear===undefined){calYear=n.getFullYear();calMonth=n.getMonth()}document.getElementById('cal-title').textContent=calYear+'? '+(calMonth+1)+'?';var recs=getRecords(),todos=getTodos(),map={};recs.forEach(function(r){if(!r.date)return;if(!map[r.date])map[r.date]={r:[],t:[]};map[r.date].r.push(r)});todos.forEach(function(t){if(!t.dueDate)return;if(!map[t.dueDate])map[t.dueDate]={r:[],t:[]};map[t.dueDate].t.push(t)});var fd=new Date(calYear,calMonth,1).getDay(),dim=new Date(calYear,calMonth+1,0).getDate(),dip=new Date(calYear,calMonth,0).getDate();var td=today(),html='';for(var i=fd-1;i>=0;i--){var d=dip-i;html+=cell(pad(calYear,calMonth-1,d),d,1,false,map[pad(calYear,calMonth-1,d)])}for(var d=1;d<=dim;d++){var ds=pad(calYear,calMonth,d);html+=cell(ds,d,0,ds===td,map[ds],ds===calSel)}var tc=fd+dim,rm=(7-(tc%7))%7;for(var i=1;i<=rm;i++){var ds=pad(calYear,calMonth+1,i);html+=cell(ds,i,1,false,map[ds])}document.getElementById('cal-days').innerHTML=html;if(calSel)showDay(calSel);else if(map[td]){calSel=td;showDay(td)}else{document.getElementById('day-panel-title').textContent='????????';document.getElementById('day-records').innerHTML='<div class="empty-day">????????????????</div>'}if(typeof lucide!=='undefined')lucide.createIcons()}
+function renderCalendar(){var n=new Date();if(calYear===undefined){calYear=n.getFullYear();calMonth=n.getMonth()}document.getElementById('cal-title').textContent=calYear+'年 '+(calMonth+1)+'月';var recs=getRecords(),todos=getTodos(),map={};recs.forEach(function(r){if(!r.date)return;if(!map[r.date])map[r.date]={r:[],t:[]};map[r.date].r.push(r)});todos.forEach(function(t){if(!t.dueDate)return;if(!map[t.dueDate])map[t.dueDate]={r:[],t:[]};map[t.dueDate].t.push(t)});var fd=new Date(calYear,calMonth,1).getDay(),dim=new Date(calYear,calMonth+1,0).getDate(),dip=new Date(calYear,calMonth,0).getDate();var td=today(),html='';for(var i=fd-1;i>=0;i--){var d=dip-i;html+=cell(pad(calYear,calMonth-1,d),d,1,false,map[pad(calYear,calMonth-1,d)])}for(var d=1;d<=dim;d++){var ds=pad(calYear,calMonth,d);html+=cell(ds,d,0,ds===td,map[ds],ds===calSel)}var tc=fd+dim,rm=(7-(tc%7))%7;for(var i=1;i<=rm;i++){var ds=pad(calYear,calMonth+1,i);html+=cell(ds,i,1,false,map[ds])}document.getElementById('cal-days').innerHTML=html;if(calSel)showDay(calSel);else if(map[td]){calSel=td;showDay(td)}else{document.getElementById('day-panel-title').textContent='选择日期查看详情';document.getElementById('day-records').innerHTML='<div class="empty-day">点击日历中的日期查看当日外勤记录</div>'}if(typeof lucide!=='undefined')lucide.createIcons()}
 
-function cell(ds,num,other,isToday,data,isSel){var c='cal-cell'+(other?' other-month':'')+(isToday?' today':'')+(isSel?' selected':'');var dots='';if(data){for(var i=0;i<Math.min(data.r.length,3);i++)dots+='<span class="cal-dot"></span>';if(data.t.filter(function(t){return!t.completed}).length>0)dots+='<span class="cal-dot todo-dot"></span>'}var cs=data&&data.r.length>0?'<div class="record-count">'+data.r.length+'?</div>':'';return '<div class="'+c+'" onclick="selDate(\''+ds+'\')" ondragover="dragOverCal(event)" ondragleave="dragLeaveCal(event)" ondrop="dropOnCal(event,\''+ds+'\')"><div class="cal-day-num">'+num+'</div><div class="cal-dots">'+dots+'</div>'+cs+'</div>'}
+function cell(ds,num,other,isToday,data,isSel){var c='cal-cell'+(other?' other-month':'')+(isToday?' today':'')+(isSel?' selected':'');var dots='';if(data){for(var i=0;i<Math.min(data.r.length,3);i++)dots+='<span class="cal-dot"></span>';if(data.t.filter(function(t){return!t.completed}).length>0)dots+='<span class="cal-dot todo-dot"></span>'}var cs=data&&data.r.length>0?'<div class="record-count">'+data.r.length+'条</div>':'';return '<div class="'+c+'" onclick="selDate(\''+ds+'\')" ondragover="dragOverCal(event)" ondragleave="dragLeaveCal(event)" ondrop="dropOnCal(event,\''+ds+'\')"><div class="cal-day-num">'+num+'</div><div class="cal-dots">'+dots+'</div>'+cs+'</div>'}
 
 function pad(y,m,d){var dt=new Date(y,m,d);return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0')}
 function calGo(dir){calMonth+=dir;if(calMonth<0){calMonth=11;calYear--}if(calMonth>11){calMonth=0;calYear++}renderCalendar()}
 function calToday(){var n=new Date();calYear=n.getFullYear();calMonth=n.getMonth();calSel=today();renderCalendar();var s=document.querySelector('.cal-cell.selected');if(s)s.scrollIntoView({block:'nearest'})}
 function selDate(ds){calSel=ds;renderCalendar();showDay(ds)}
 
-function showDay(ds){var recs=getRecords();var todos=getTodos().filter(function(t){return t.dueDate===ds&&!t.completed});var dt=new Date(ds),wd=['?','?','?','?','?','?','?'];document.getElementById('day-panel-title').textContent=fmtDate(ds)+' ??'+wd[dt.getDay()];var c=document.getElementById('day-records'),html='';if(todos.length>0)html+='<div style="margin-bottom:8px;font-size:12px;color:var(--warning)"><i data-lucide="check-square" style="width:13px;height:13px;vertical-align:middle"></i> ?? '+todos.length+' ?</div>';if(recs.length===0&&todos.length===0){html+='<div class="empty-day">???????</div>'}recs.forEach(function(r){html+='<div class="day-record-item"><div class="r-icon"><i data-lucide="map-pin"></i></div><div class="r-body"><div class="r-title">'+esc(r.name)+'</div><div class="r-meta">'+esc(r.location||'?')+'</div></div></div>'});c.innerHTML=html;if(typeof lucide!=='undefined')lucide.createIcons()}
+function showDay(ds){var recs=getRecords();var todos=getTodos().filter(function(t){return t.dueDate===ds&&!t.completed});var dt=new Date(ds),wd=['日','一','二','三','四','五','六'];document.getElementById('day-panel-title').textContent=fmtDate(ds)+' 星期'+wd[dt.getDay()];var c=document.getElementById('day-records'),html='';if(todos.length>0)html+='<div style="margin-bottom:8px;font-size:12px;color:var(--warning)"><i data-lucide="check-square" style="width:13px;height:13px;vertical-align:middle"></i> 待办 '+todos.length+' 项</div>';if(recs.length===0&&todos.length===0){html+='<div class="empty-day">当日无外勤记录</div>'}recs.forEach(function(r){html+='<div class="day-record-item"><div class="r-icon"><i data-lucide="map-pin"></i></div><div class="r-body"><div class="r-title">'+esc(r.name)+'</div><div class="r-meta">'+esc(r.location||'—')+'</div></div></div>'});c.innerHTML=html;if(typeof lucide!=='undefined')lucide.createIcons()}
 
 /* Render Records */
-function renderRecords(){var r=getRecords(),s=document.getElementById('search-input').value.trim().toLowerCase();if(s)r=r.filter(function(x){return x.name.toLowerCase().includes(s)||x.location.toLowerCase().includes(s)});document.getElementById('total-count').textContent=r.length;var l=document.getElementById('records-list');if(r.length===0){l.innerHTML='<div class="empty-state"><i data-lucide="file-text" style="width:44px;height:44px;opacity:.4"></i><p>??????</p></div>';if(typeof lucide!=='undefined')lucide.createIcons();return}l.innerHTML=r.map(function(x){var nh=x.note?'<br><br><strong>???</strong>'+esc(x.note):'';return '<div class="record-card"><div class="record-card-header"><div class="name-date"><span class="name">'+esc(x.name)+'</span></div></div><div class="card-body"><span class="label">??</span><span class="value">'+esc(x.location)+'</span><div class="desc">'+esc(x.note||'')+'</div></div></div>'}).join('');if(typeof lucide!=='undefined')lucide.createIcons()}
+function renderRecords(){var r=getRecords(),s=document.getElementById('search-input').value.trim().toLowerCase();if(s)r=r.filter(function(x){return x.name.toLowerCase().includes(s)||x.location.toLowerCase().includes(s)});document.getElementById('total-count').textContent=r.length;var l=document.getElementById('records-list');if(r.length===0){l.innerHTML='<div class="empty-state"><i data-lucide="file-text" style="width:44px;height:44px;opacity:.4"></i><p>暂无外勤记录</p></div>';if(typeof lucide!=='undefined')lucide.createIcons();return}l.innerHTML=r.map(function(x){var nh=x.note?'<br><br><strong>备注：</strong>'+esc(x.note):'';return '<div class="record-card"><div class="record-card-header"><div class="name-date"><span class="name">'+esc(x.name)+'</span></div></div><div class="card-body"><span class="label">地点</span><span class="value">'+esc(x.location)+'</span><div class="desc">'+esc(x.note||'')+'</div></div></div>'}).join('');if(typeof lucide!=='undefined')lucide.createIcons()}
 
-function clearAllRecords(){if(!confirm('???????????'))return;saveRecords([]);renderCalendar();if(document.getElementById('view-records').classList.contains('active'))renderRecords();toast('???')}
+function clearAllRecords(){if(!confirm('确定要清空所有记录吗？'))return;saveRecords([]);renderCalendar();if(document.getElementById('view-records').classList.contains('active'))renderRecords();toast('已清空')}
 
 /* Export */
-function exportCSV(){var r=getRecords();if(!r.length){toast('???????','error');return}var h='??,??,??,????';var b=r.map(function(x){return[x.name,x.location||'',x.note||'',x.createdAt||''].map(function(c){var s=String(c||'');return s.includes(',')||s.includes('"')||s.includes('\n')?'"'+s.replace(/"/g,'""')+'"':s}).join(',')}).join('\n');var blob=new Blob(['\uFEFF'+h+'\n'+b],{type:'text/csv;charset=utf-8;'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='????_'+today()+'.csv';a.click();URL.revokeObjectURL(url);toast('CSV???')}
+function exportCSV(){var r=getRecords();if(!r.length){toast('暂无记录可导出','error');return}var h='姓名,地点,备注,创建时间';var b=r.map(function(x){return[x.name,x.location||'',x.note||'',x.createdAt||''].map(function(c){var s=String(c||'');return s.includes(',')||s.includes('"')||s.includes('\n')?'"'+s.replace(/"/g,'""')+'"':s}).join(',')}).join('\n');var blob=new Blob(['\uFEFF'+h+'\n'+b],{type:'text/csv;charset=utf-8;'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='外勤记录_'+today()+'.csv';a.click();URL.revokeObjectURL(url);toast('CSV已导出')}
 
 /* Quick Record */
 var quickNameInput=document.getElementById('quick-name'),quickLocInput=document.getElementById('quick-location'),quickNoteInput=document.getElementById('quick-note'),quickModal=document.getElementById('quick-modal');
 function openQuickRecord(){if(quickModal)quickModal.classList.add('open');if(quickNameInput)quickNameInput.value='';if(quickLocInput)quickLocInput.value='';if(quickNoteInput)quickNoteInput.value='';if(quickNameInput)setTimeout(function(){quickNameInput.focus()},100)}
 if(quickModal)quickModal.addEventListener('click',function(e){if(e.target===e.currentTarget)closeQuickRecord()});
 function closeQuickRecord(){if(quickModal)quickModal.classList.remove('open')}
-function saveQuickRecord(){var n=quickNameInput?quickNameInput.value.trim():'',lo=quickLocInput?quickLocInput.value.trim():'',no=quickNoteInput?quickNoteInput.value.trim():'';if(!n){toast('?????','error');if(quickNameInput)quickNameInput.focus();return}if(!lo){toast('???????','error');if(quickLocInput)quickLocInput.focus();return}closeQuickRecord();var rec={id:genId(),name:n,location:lo,note:no,completed:false,createdAt:new Date().toISOString()};var r=getRecords();r.unshift(rec);saveRecords(r);renderQuickRecords();renderCalendar();toast('???????')}function renderQuickRecords(){var all=getRecords();var r=all.filter(function(x){return!x.completed});var c=document.getElementById('quick-record-count');if(c)c.textContent=all.length;var l=document.getElementById('quick-records-list');if(!l)return;if(r.length===0){l.innerHTML='<div class="empty-state" style="padding:20px 0"><p>?????</p></div>';if(typeof lucide!=='undefined')lucide.createIcons();return}var html='';for(var i=0;i<Math.min(r.length,50);i++){html+='<div class="cal-todo-item" draggable="true" ondragstart="dragRecordStart(event,\''+r[i].id+'\')" ondragend="dragRecordEnd(event)"><span class="ct-text">'+esc(r[i].name)+'</span><span style="font-size:11px;color:var(--text-secondary);flex-shrink:0;margin-right:4px">'+esc(r[i].location||'')+'</span><button class="ct-complete" onclick="completeRecord(\''+r[i].id+'\')" title="???"><i data-lucide="check-circle-2"></i></button></div>'}l.innerHTML=html;if(typeof lucide!=='undefined')lucide.createIcons()}
-function completeRecord(id){if(!confirm('???????'))return;var r=getRecords(),x=r.find(function(x){return x.id===id});if(!x)return;x.completed=true;saveRecords(r);renderQuickRecords();renderCalendar();toast('???')}
+function saveQuickRecord(){var n=quickNameInput?quickNameInput.value.trim():'',lo=quickLocInput?quickLocInput.value.trim():'',no=quickNoteInput?quickNoteInput.value.trim():'';if(!n){toast('请输入姓名','error');if(quickNameInput)quickNameInput.focus();return}if(!lo){toast('请输入外勤地点','error');if(quickLocInput)quickLocInput.focus();return}closeQuickRecord();var rec={id:genId(),name:n,location:lo,note:no,completed:false,createdAt:new Date().toISOString()};var r=getRecords();r.unshift(rec);saveRecords(r);renderQuickRecords();renderCalendar();toast('外勤记录已提交')}function renderQuickRecords(){var all=getRecords();var r=all.filter(function(x){return!x.completed});var c=document.getElementById('quick-record-count');if(c)c.textContent=all.length;var l=document.getElementById('quick-records-list');if(!l)return;if(r.length===0){l.innerHTML='<div class="empty-state" style="padding:20px 0"><p>全部已完成</p></div>';if(typeof lucide!=='undefined')lucide.createIcons();return}var html='';for(var i=0;i<Math.min(r.length,50);i++){html+='<div class="cal-todo-item" draggable="true" ondragstart="dragRecordStart(event,\''+r[i].id+'\')" ondragend="dragRecordEnd(event)"><span class="ct-text">'+esc(r[i].name)+'</span><span style="font-size:11px;color:var(--text-secondary);flex-shrink:0;margin-right:4px">'+esc(r[i].location||'')+'</span><button class="ct-complete" onclick="completeRecord(\''+r[i].id+'\')" title="已完成"><i data-lucide="check-circle-2"></i></button></div>'}l.innerHTML=html;if(typeof lucide!=='undefined')lucide.createIcons()}
+function completeRecord(id){if(!confirm('标记为已完成？'))return;var r=getRecords(),x=r.find(function(x){return x.id===id});if(!x)return;x.completed=true;saveRecords(r);renderQuickRecords();renderCalendar();toast('已完成')}
 
 function dragRecordStart(e,id){e.dataTransfer.setData('text/plain',id);e.dataTransfer.effectAllowed='move';setTimeout(function(){e.target.classList.add('dragging')},0)}
 function dragRecordEnd(e){e.target.classList.remove('dragging')}
@@ -313,16 +313,18 @@ function dragTodoStart(e,id){e.dataTransfer.setData('text/plain',id);e.dataTrans
 function dragTodoEnd(e){e.target.classList.remove('dragging')}
 function dragOverCal(e){e.preventDefault();e.dataTransfer.dropEffect='move';e.currentTarget.classList.add('drag-over')}
 function dragLeaveCal(e){e.currentTarget.classList.remove('drag-over')}
-function dropOnCal(e,ds){e.preventDefault();e.currentTarget.classList.remove('drag-over');var id=e.dataTransfer.getData('text/plain');if(!id)return;var r=getRecords(),x=r.find(function(x){return x.id===id});if(!x)return;if(x.date)x.date=ds;else{x.date=ds||today()}saveRecords(r);renderCalendar();renderQuickRecords();toast('???? '+fmtDate(ds))}
+function dropOnCal(e,ds){e.preventDefault();e.currentTarget.classList.remove('drag-over');var id=e.dataTransfer.getData('text/plain');if(!id)return;var r=getRecords(),x=r.find(function(x){return x.id===id});if(!x)return;if(x.date)x.date=ds;else{x.date=ds||today()}saveRecords(r);renderCalendar();renderQuickRecords();toast('已安排到 '+fmtDate(ds))}
 
 /* Init */
 document.addEventListener('DOMContentLoaded',function(){if(typeof lucide!=='undefined')lucide.createIcons();renderCalendar();calRenderTodos()});
 
 // Watermark
-(function(){var d=document.createElement('div');d.innerHTML='<img src="watermark.png" style="width:28px;height:28px;border-radius:50%;display:inline-block;vertical-align:middle;margin-right:6px"><span style="font-size:12px;color:#555;vertical-align:middle;letter-spacing:.5px">????</span>';d.style.cssText='position:fixed;bottom:10px;right:10px;z-index:9999;padding:6px 14px;border-radius:20px;background:rgba(255,255,255,.9);box-shadow:0 1px 4px rgba(0,0,0,.12);pointer-events:none;user-select:none';document.body.appendChild(d);})();
+(function(){var d=document.createElement('div');d.innerHTML='<img src="watermark.png" style="width:28px;height:28px;border-radius:50%;display:inline-block;vertical-align:middle;margin-right:6px"><span style="font-size:12px;color:#555;vertical-align:middle;letter-spacing:.5px">缘仔谨制</span>';d.style.cssText='position:fixed;bottom:10px;right:10px;z-index:9999;padding:6px 14px;border-radius:20px;background:rgba(255,255,255,.9);box-shadow:0 1px 4px rgba(0,0,0,.12);pointer-events:none;user-select:none';document.body.appendChild(d);})();
 </script>
 
 
 
-<div style="text-align:center;padding:10px;font-size:12px;color:#888;border-top:1px solid #eee;margin-top:10px">????</div></body>
+
+<div style="text-align:center;padding:14px 0 4px;border-top:1px solid #e0e2e6;margin-top:18px;font-size:11px;color:#999;letter-spacing:1px">缘仔谨制</div>
+</body>
 </html>
